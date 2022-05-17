@@ -1,6 +1,7 @@
 from glue.viewers.common.state import ViewerState, LayerState
-from echo import SelectionCallbackProperty
+from echo import SelectionCallbackProperty, CallbackProperty, keep_in_sync
 from glue.core.data_combo_helper import ComponentIDComboHelper
+
 
 class MyPluginViewerState(ViewerState):
     
@@ -19,6 +20,18 @@ class MyPluginViewerState(ViewerState):
 
 
 class MyPluginLayerState(LayerState):
+    """
+    Layer state defines: layer, zorder, visible
+    """
+    
+    color = CallbackProperty()
+    
     def __init__(self, layer=None, viewer_state=None, **kwargs):
-        super(MyPluginLayerState, self).__init__()
+        super(MyPluginLayerState, self).__init__(layer=layer)
+        
+        self.color = self.layer.style.color
+        self._sync_color = keep_in_sync(self, 'color', self.layer.style, 'color')
+        
+        
         self.layer = layer #This seems critical
+        

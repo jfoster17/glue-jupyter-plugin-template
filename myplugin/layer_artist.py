@@ -12,7 +12,16 @@ class MyPluginLayerArtist(LayerArtist):
                                                   layer=layer
                                                   )
         self.widget = viewer
-                                                  
+        self.state.add_callback('color',self._on_color_change)
+        
+    def _on_color_change(self, value=None):
+        if self.state.color is not None:
+            #print(self.state.color)
+            self.widget.style.button_color = self.state.color
+    
+    #def _on_attribute_change(self, value=None):
+    #    if self.state.
+    
     def clear(self):
         """Req: Remove the layer from viewer but allow it to be added back"""
         pass

@@ -20,7 +20,8 @@ class MyPluginView(IPyWidgetView):
         super(MyPluginView, self).__init__(session, state=state)
 
         self.widget = widgets.Button(description='Simple ipywidget')
-        self.widget.layout.height="300px"
+        self.widget.layout.height = "300px" # To allow us to see the options
+        self.widget.style.button_color = None
         self.create_layout()  # This requires an actual Widget
         
     def get_layer_artist(self, cls, layer=None, layer_state=None):
