@@ -4,8 +4,7 @@ from .state import MyPluginViewerState
 from .layer_artist import MyPluginLayerArtist
 from .widgets import MyPluginViewerStateWidget, MyPluginLayerStateWidget
 
-import ipyleaflet
-
+import ipywidgets as widgets
 
 class MyPluginView(IPyWidgetView):
     
@@ -20,12 +19,13 @@ class MyPluginView(IPyWidgetView):
     def __init__(self, session, state=None):
         super(MyPluginView, self).__init__(session, state=state)
 
-        self.mapfigure = ipyleaflet.Map(prefer_canvas=True)
+        self.widget = widgets.Button(description='Simple ipywidget')
+        self.widget.layout.height="300px"
         self.create_layout()  # This requires an actual Widget
         
     def get_layer_artist(self, cls, layer=None, layer_state=None):
-        return cls(self.mapfigure, self.state, layer=layer, layer_state=layer_state)
+        return cls(self.widget, self.state, layer=layer, layer_state=layer_state)
 
     @property
     def figure_widget(self):
-        return self.mapfigure
+        return self.widget

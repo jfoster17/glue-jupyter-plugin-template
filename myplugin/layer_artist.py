@@ -11,7 +11,7 @@ class MyPluginLayerArtist(LayerArtist):
                                                   layer_state=layer_state,
                                                   layer=layer
                                                   )
-        self.mapfigure = viewer
+        self.widget = viewer
                                                   
     def clear(self):
         """Req: Remove the layer from viewer but allow it to be added back"""
