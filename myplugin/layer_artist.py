@@ -1,3 +1,5 @@
+import numpy as np
+
 from glue.viewers.common.layer_artist import LayerArtist
 from glue.utils import color2hex
 
@@ -16,14 +18,17 @@ class MyPluginLayerArtist(LayerArtist):
         self.state.add_callback('color',self._on_color_change)
         self._on_color_change()
         
+        self._viewer_state.add_callback('x_att',self._on_attribute_change)
+
+        
     def _on_color_change(self, value=None):
         if self.state.color is not None:
             #print(self.state.color)
             self.widget.style.button_color = color2hex(self.state.color)
     
-    #def _on_attribute_change(self, value=None):
-    #    if self.state.
-    
+    def _on_attribute_change(self, value=None):
+        self.update()
+            
     def clear(self):
         """Req: Remove the layer from viewer but allow it to be added back"""
         pass
@@ -35,7 +40,11 @@ class MyPluginLayerArtist(LayerArtist):
     def update(self):
         """Req: Update appearance of the layer before redrawing.
         Called when a subset is changed."""
-        pass
+        
+        x_att_data = self.layer.data[self._viewer_state.x_att]
+        self.widget.description = np.array2string(x_att_data, precision=2, separator=',',
+                                                 suppress_small=True)
+
                 
     def redraw(self):
         """Req: Re-render the plot."""

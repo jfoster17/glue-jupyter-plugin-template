@@ -13,7 +13,7 @@ class MyPluginViewerState(ViewerState):
         self.x_att_helper = ComponentIDComboHelper(self, 'x_att')
 
         self.add_callback('layers', self._layers_changed)
-        #self.update_from_dict(kwargs)
+        self.update_from_dict(kwargs)
 
     def _layers_changed(self, *args):
         self.x_att_helper.set_multiple_data(self.layers_data)
