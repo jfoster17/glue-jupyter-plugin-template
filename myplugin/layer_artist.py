@@ -1,4 +1,5 @@
 from glue.viewers.common.layer_artist import LayerArtist
+from glue.utils import color2hex
 
 from .state import MyPluginLayerState
 
@@ -13,11 +14,12 @@ class MyPluginLayerArtist(LayerArtist):
                                                   )
         self.widget = viewer
         self.state.add_callback('color',self._on_color_change)
+        self._on_color_change()
         
     def _on_color_change(self, value=None):
         if self.state.color is not None:
             #print(self.state.color)
-            self.widget.style.button_color = self.state.color
+            self.widget.style.button_color = color2hex(self.state.color)
     
     #def _on_attribute_change(self, value=None):
     #    if self.state.
