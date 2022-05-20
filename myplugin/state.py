@@ -22,16 +22,18 @@ class MyPluginViewerState(ViewerState):
 class MyPluginLayerState(LayerState):
     """
     Layer state defines: layer, zorder, visible
+    
+    We need to set `self.layer = layer`
+    1) Use `super(MyPluginLayerState, self).__init__(layer=layer)`
+    2) Do `self.layer = layer`
     """
     
     color = CallbackProperty()
     
     def __init__(self, layer=None, viewer_state=None, **kwargs):
-        super(MyPluginLayerState, self).__init__(layer=layer)
-        
-        self.color = self.layer.style.color
+        super(MyPluginLayerState, self).__init__()#viewer_state=viewer_state, layer=layer)
+        self.layer=layer
+        if layer is not None:
+            self.color = self.layer.style.color
         self._sync_color = keep_in_sync(self, 'color', self.layer.style, 'color')
-        
-        
-        self.layer = layer #This seems critical
-        
+

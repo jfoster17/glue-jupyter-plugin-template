@@ -4,7 +4,7 @@ from .state import MyPluginViewerState
 from .layer_artist import MyPluginLayerArtist
 from .widgets import MyPluginViewerStateWidget, MyPluginLayerStateWidget
 
-import ipywidgets as widgets
+import ipywidgets
 
 class MyPluginView(IPyWidgetView):
     
@@ -18,7 +18,7 @@ class MyPluginView(IPyWidgetView):
     
     def __init__(self, session, state=None):
         super(MyPluginView, self).__init__(session, state=state)
-        self.widget = widgets.Button(description='Simple ipywidget')
+        self.widget = ipywidgets.Button(description='Simple ipywidget')
         self.widget.layout.height = "300px" # To allow us to see the options
         self.create_layout()  # This requires an actual Widget
         
